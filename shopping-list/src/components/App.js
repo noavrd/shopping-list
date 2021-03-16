@@ -1,6 +1,8 @@
 import './App.css';
 import Basket from './Basket';
-import Groceries from  "./Groceries"
+import Groceries from  "./Groceries";
+import Counter from "./Counter";
+import { useState } from 'react';
 const groceries = [
   {id: 1, name:"Strawberry"},
   {id: 2, name:"Blueberry"},
@@ -20,9 +22,33 @@ const groceries = [
   {id: 16, name:"Fish"}, 
   {id: 17, name:"Rice"}, 
   {id: 18, name:"Pasta"}, 
-  {id: 19, name:"Bread"}]
+  {id: 19, name:"Bread"}];
 
 function App() {
+  const [counter, setCounter] = useState({});
+
+  //add counter to customer list
+  function addItem(name) {
+    if(!counter[name]) {
+      counter[name] = 1;
+    } else {
+      couter[name] + 1;
+    }
+    setCounter(Object.assign({}, counter));
+  }
+
+  function removeItem(name) {
+    if(counter[name] === 1) {
+      delete counter[name]
+    } else {
+      counter[name] - 1;
+    }
+    setCounter(Object.assign({}, counter));
+  }
+
+  function removeAll() {
+    setCounter({});
+  }
   return(
     <div className="groceriesList">
       { groceries.map((item, i) => (
@@ -32,12 +58,13 @@ function App() {
         id={item.id}
         />
       ))} <br/>
-        { groceries.map((item, i) => (
-          <Basket
+        { list.map((item, i) => (
+          <Groceries
           key={`item-${i}`}
           name={item.name}
           id={item.id}
           />
+
         ))}
     </div>
   )

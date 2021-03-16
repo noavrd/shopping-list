@@ -13,7 +13,7 @@ export default class Groceries extends  React.Component {
             <ul className="groceries">
                 <li>
                     <button onClick={() => {
-                        <Basket/>
+                        // <Basket/>
                     }}>+</button>
                     {this.props.name}
                 </li>
