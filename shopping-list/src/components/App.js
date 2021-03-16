@@ -40,7 +40,7 @@ function App() {
 
   function removeItem(name) {
     if(counter[name] === 1) {
-      delete counter[name]
+      delete counter[name];
     } else {
       --counter[name];
     }
@@ -55,7 +55,7 @@ function App() {
   return(
     <div className="groceriesList">
         <Groceries groceries={groceries} addItem={addItem}/>
-        <Basket groceries={counter} removeItem={removeItem} removeAll={removeAll} />
+        <Basket items={counter} removeItem={removeItem} removeAll={removeAll} />
     </div>
   )
 }

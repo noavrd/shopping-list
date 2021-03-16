@@ -1,28 +1,24 @@
 import React, {useState} from "react";
+import BasketItem from "./BasketItem";
 
-export default class Basket extends React.Component {
-
-    state = {
-        counter: 1
-    };
-
-    increase = () => {
-        this.setState({counter:this.state.increase + 1})
-    }
-
-    render() {
-        return (
-            
-            <ul className="groceries">
-            <li>
-                {this.state.counter !== 0 ? this.props.name : ""}
-                {console.log(this.state)}
-            </li>
+function Basket({items, removeItem, removeAll}) {
+    const groceriesBasket = Object.entries(items);
+    return(
+        <ul>
+            <h3>Basket</h3>
+            <button onClick={removeAll}><i className="fa fa-trash" aria-hidden="true"></i>delete</button>
+            {groceriesBasket.map(([name, amount], i) => (
+                <BasketItem
+                key={i}
+                name={name}
+                amount={amount}
+                removeItem={() => removeItem(name)}
+                />
+            ))}
         </ul>
-        )
-    }
-
+    )
+}
         
     
-}
+export default Basket;
 
