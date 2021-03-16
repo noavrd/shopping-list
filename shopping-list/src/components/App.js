@@ -1,6 +1,6 @@
 import './App.css';
 import Groceries from  "./Groceries";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Basket from './Basket';
 
 const groceries = [
@@ -27,6 +27,14 @@ const groceries = [
 function App() {
 
   const [counter, setCounter] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+
 
   //add counter to customer list
   function addItem(name) {
@@ -51,11 +59,27 @@ function App() {
     setCounter({});
   }
 
+    //search
+    useEffect(() => {
+      const results = groceries.filter((grocery) =>
+        grocery.toLowerCase().includes(searchTerm)
+      );
+      setSearchResults(results);
+    }, [searchTerm]);
+  
+  
 
   return(
+  
     <div className="groceriesList">
-        <Groceries groceries={groceries} addItem={addItem}/>
-        <Basket items={counter} removeItem={removeItem} removeAll={removeAll} />
+        <input
+        type="text"
+        placeholder="Search"
+        value={searchTerm}
+        onChange={handleChange}
+      />
+      <Groceries groceries={searchResults} addItem={addItem}/>
+      <Basket items={counter} removeItem={removeItem} removeAll={removeAll} />
     </div>
   )
 }
